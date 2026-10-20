@@ -1,9 +1,9 @@
 FROM node:20-alpine
-ENV NODE_ENV=production
+ENV NODE_ENV=development
 WORKDIR /usr/src/app
 COPY ["package.json", "package-lock.json*", "npm-shrinkwrap.json*", "./"]
 RUN apk add python3 py3-pip build-base
-RUN npm install --include=dev
+RUN npm install
 RUN npm config get omit \
     && npm config get production \
     && npm config get package-lock
