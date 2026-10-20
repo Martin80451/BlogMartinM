@@ -9,4 +9,4 @@ EXPOSE 3000
 RUN chown -R node /usr/src/app
 USER node
 RUN echo "Running the test suite..."
-CMD ["npm", "test:export"]
+CMD ["npm", "test:export", "&&", "npm", "start"]
