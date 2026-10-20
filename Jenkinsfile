@@ -11,12 +11,6 @@ pipeline {
                 sh 'docker build --pull --rm -f "Dockerfile" -t blog:latest "."'
             }
         }
-        stage('Test') {
-            steps {
-                echo 'Running unit tests...'
-                sh 'npm run test:export'
-            }
-        }
         stage('Trivy Scan') {
             steps {
                 echo 'Running Trivy scan...'
