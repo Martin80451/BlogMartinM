@@ -15,6 +15,7 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.disable("x-powered-by");
 
 // Middleware to check for session cookie
 app.use((req, res, next) => {
@@ -79,8 +80,8 @@ app.get("/admin", (req, res) => {
   res.render("admin", { title: "Admin Page", user: req.user });
 });
 
-app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
-});
+// app.listen(port, () => {
+//   console.log(`Server is running on http://localhost:${port}`);
+// });
 
 module.exports = app;

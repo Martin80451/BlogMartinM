@@ -14,11 +14,18 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Running unit tests...'
+                sh 'npm run test:export'
+            }
+        }
+        stage('Trivy Scan') {
+            steps {
+                echo 'Running Trivy scan...'
                 sh 'trivy image --exit-code 0 --severity MEDIUM,HIGH,CRITICAL --format table -o trivy-report.txt blog:latest'
             }
         }
         stage('Dependency Scan') {
             steps {
+                echo 'Running OWASP Dependency scan...'
                 withCredentials([
                     string(credentialsId: 'nvd-api-key', variable: 'NVD_API_KEY')
                     ]) {
@@ -63,6 +70,7 @@ pipeline {
         }
         stage('Nikto Scan') {
             steps {
+                echo 'Running Nikto scan...'
                 sh ' nikto -h http://localhost:3000 '
             }
         }
